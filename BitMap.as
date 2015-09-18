@@ -4,7 +4,6 @@ package
 
     public class BitMap {
 
-        // 在p2p模块中，bitmap主要表示向向其他
         public static const HEADER_SIZE:int = 8;
         
         private static const SETS:Array = [128, 64, 32, 16, 8, 4, 2, 1];
@@ -59,27 +58,6 @@ package
         }
 
         
-        /**
-         * 置第index个byte位为00000000
-         * @param	index
-         */
-        public function bitsClear(index:int):void {
-            if (index < _bytes.length) {
-                _bytes[index] = 0;
-            }
-        }
-        
-        /**
-         * 获取第index个byte位状态：11111111表示true，其他全为false
-         * @param	index
-         * @return
-         */
-        public function byte(index:int):Boolean {
-            if (index < _bytes.length) {
-                return _bytes[index] == 255;
-            }
-            return false;
-        }
         
         /**
          * 向左移动length bit
@@ -104,10 +82,14 @@ package
 					}
 				} else {
 					var rbit:int = 8 - bit;
-					for (var k:int = bytes; k < _bytes.length -1; ++k) {
+					for (var k:int = bytes; k < _bytes.length; ++k) {
 						_bytes[k - bytes] =  (_bytes[k] << bit) + (_bytes[k+1] >> rbit);  
 					}
-					_bytes[k ] = (_bytes[k] << bit);
+					if (_size % 8 == 0) {
+						//_bytes[k ] = (_bytes[k] << bit);
+					} else {
+						//_bytes[k] = 0;
+					}
 				}
 			}
         }
