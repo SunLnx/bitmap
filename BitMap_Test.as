@@ -1,47 +1,23 @@
 package 
 {
-    public class BitMap_Test
-    {
-        public function BitMap_Test()
-        {
-            var bm:BitMap = new BitMap(9);
-            //for (var i:int = 0; i < bm.size; ++i) {
-                //trace(bm.bit(i), bm.bitSet(i), bm.bit(i));
-            //}
-            //for (var i:int = 0; i < bm.bytes.length;++i) {
-            //    trace(bm.byte(i), bm.byteSet(i), bm.byte(i));
-            //}
-            
-            var i:int;
-            trace(bm.size);
-            for( i= 0; i < bm.size;++i) {
-                bm.bitSet(i);
-            }
-            trace(bm.snapshot());
-            
-            for( i= 0; i < bm.size;++i) {
-                bm.bitClear(i);
-            }
-            trace(bm.snapshot());
-            
-            for( i= 0; i < bm.bytes.length;++i) {
-                bm.byteSet(i);
-            }
-            trace(bm.snapshot());
-            
-            for( i= 0; i < bm.bytes.length;++i) {
-                bm.byteClear(i);
-            }
-            trace(bm.snapshot());
-            
-            for( i= 0; i < bm.bytes.length;++i) {
-                bm.byteSet(i);
-            }
-            
-            bm.byteShift(2);
-            
-            
-            trace(bm.snapshot());
-        }
-    }
+	public class BitMap_Test
+	{
+		public function BitMap_Test()
+		{
+			var bm:BitMap = new BitMap(64);
+			reset(bm);
+			trace(bm.snapshot());
+			
+		
+			reset(bm);
+			bm.bitShift(2);
+			trace(bm.snapshot());
+		}
+		
+		private function reset(map:BitMap):void {
+			for (var i:int = 0; i < map.size; ++i) {
+				i % 2 == 0?map.bitSet(i):map.bitClear(i);
+			}
+		}
+	}
 }

@@ -82,15 +82,15 @@ package
 					}
 				} else {
 					var rbit:int = 8 - bit;
-					for (var k:int = bytes; k < _bytes.length; ++k) {
+					for (var k:int = bytes; k < _bytes.length - 1; ++k) {
 						_bytes[k - bytes] =  (_bytes[k] << bit) + (_bytes[k+1] >> rbit);  
 					}
-					if (_size % 8 == 0) {
-						//_bytes[k ] = (_bytes[k] << bit);
-					} else {
-						//_bytes[k] = 0;
+					_bytes[k-bytes] = _bytes[k] << bit;
+					for (k = k - bytes + 1; k < _bytes.length; ++k) {
+						_bytes[k] = 0;
 					}
 				}
+				
 			}
         }
 		
